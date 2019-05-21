@@ -285,6 +285,7 @@ void WordMaker::addWord()
 		{
 			++count;
 			cout << "出题成功。" << endl;
+
 			int addExp = EACH_EXP + min(10, count / EXP_COUNT_RATE);
 			exp += addExp;
 			//升级

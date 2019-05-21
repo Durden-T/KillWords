@@ -12,6 +12,7 @@ class Dictionary;
 
 class User
 {
+	//分类比较函数，设置为友元函数
 	friend bool cmpWithCount(User* a, User* b);
 	friend bool cmpWithExp(User* a, User* b);
 	friend bool cmpWithLevel(User* a, User* b);
@@ -19,18 +20,22 @@ class User
 public:
 	User(string& _name, string& _key, int _count = 0, int _exp = 0, int _level = 1) :name(_name), key(_key), count(_count), exp(_exp), level(_level) {}
 
-	virtual ~User() {}
+	virtual ~User() = default;
 
+	//初始化与Database的连接
 	static void connectWithDatabase(Database* _data);
 
 	const string& getName() const;
 
 	const string& getKey() const;
 
+	//打印用户信息
 	virtual void printInfo() const = 0;
 
+	//向file中添加当前用户的信息
 	void addToData(ofstream& file) const;
 
+	//选择闯关/出题 /查询/查看排行
 	virtual void choice() = 0;
 
 	void query() const;
@@ -70,6 +75,7 @@ public:
 
 	void choice() override;
 
+	//出题
 	void makeWord();
 };
 

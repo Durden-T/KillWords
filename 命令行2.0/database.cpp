@@ -6,7 +6,7 @@
 #include"user.h"
 #include"common.h"
 
-
+//声明
 bool cmpWithCount(User* a, User* b);
 bool cmpWithExp(User* a, User* b);
 bool cmpWithLevel(User* a, User* b);
@@ -23,6 +23,7 @@ Database::Database()
 	CreateDirectoryA("C:\\killWords\\player", NULL);
 	CreateDirectoryA("C:\\killWords\\wordMaker", NULL);
 
+	//读取文件中用户信息
 	ifstream playerIn("C:\\killWords\\player\\playerFile.txt"), wordMakerIn("C:\\killWords\\wordMaker\\wordMakerFile.txt");
 	string line, name, key;
 	int count, exp, level;
@@ -43,19 +44,28 @@ Database::Database()
 		wordMakers.push_back(t);
 		userTable.emplace(move(name), move(t));
 	}
+
+	//关闭文件流
 	playerIn.close();
 	wordMakerIn.close();
 }
 
 Database::~Database()
 {
+	//析构时，向文件更新信息
 	update();
 
+	//delete 用户
 	for (User* p : players)
+	{
 		delete p;
-
+		p = nullptr;
+	}
 	for (User* p : wordMakers)
+	{
 		delete p;
+		p = nullptr;
+	}
 }
 
 void Database::playerRank()
@@ -140,18 +150,19 @@ void Database::wordMakerRank()
 
 void Database::update()
 {
+	//打开输出流
 	ofstream playerFile("C:\\killWords\\player\\playerFile.txt", ios::trunc), wordMakerFile("C:\\killWords\\wordMaker\\wordMakerFile.txt", ios::trunc);
+	//为每个用户添加信息到文件中
 	for (User* t : players)
 		t->addToData(playerFile);
 	playerFile.close();
-
 	for (User* t : wordMakers)
 		t->addToData(wordMakerFile);
 	wordMakerFile.close();
 }
 
 
-
+//简单的排序，可以分开建立排好序的文件，每次更新，注册重新单次插入
 void Database::rankWithCountAndPrint(vector<User*>& src)
 {
 	sort(src.begin(), src.end(), cmpWithCount);
@@ -178,6 +189,7 @@ void Database::printUsers(vector<User*>& src)
 	cout << '\n';
 }
 
+//增加新用户
 void Database::addPlayer(User* t)
 {
 	players.push_back(t);

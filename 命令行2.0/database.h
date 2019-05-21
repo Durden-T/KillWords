@@ -13,6 +13,7 @@ public:
 
 	~Database();
 
+	//判断用户是否存在，存在返回true，否则返回false
 	bool hasUser(const string& name) const;
 
 	User* getUser(const string& name);
@@ -23,18 +24,24 @@ public:
 
 	void addWordMaker(User* t);
 
+	//返回排序过的所有用户信息
 	void playerRank();
 
 	void wordMakerRank();
 
+	//更新数据
 	void update();
 
 private:
+	//从文件中读取用户信息,存入players,wordMakers
 	vector<User*> players, wordMakers;
+	//快速定位用户，获取用户指针
 	unordered_map<string, User*> userTable;
+	//排行实现部分，根据不同的要求排行并打印
 	void rankWithCountAndPrint(vector<User*>& src);
 	void rankWithExpAndPrint(vector<User*>& src);
 	void rankWithLevelAndPrint(vector<User*>& src);
+	//打印vector中用户信息
 	void printUsers(vector<User*>& src);
 };
 
