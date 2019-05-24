@@ -8,7 +8,7 @@
 class Database
 {
 	//成员函数指针
-	using fun=string(Database::*) (vector<string>&);
+	using fun = string(Database::*) (vector<string>&);
 
 public:
 	Database();

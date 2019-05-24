@@ -6,7 +6,8 @@
 int main()
 {
 	Database data;
-
+	LoginMenu loginMenu;
+	RegisterMenu registerMenu;
 	cout << "********************************************\n";
 	cout << "                单词消除游戏\n";
 	cout << "          a.登录  b.注册  q.退出\n";
@@ -17,21 +18,17 @@ int main()
 	{
 		switch (c)
 		{
-		case 'a':
-		{
-			LoginMenu loginMenu;
+		case 'a':			
 			loginMenu.login();
 			break;
-		}
+
 		case 'b':
-		{
-			RegisterMenu registerMenu;
 			registerMenu._register();
 			break;
-		}
+
 		case 'q':
 			return 0;
-			break;
+
 		default:
 			cout << "指令错误,请重新输入。\n";
 			break;
