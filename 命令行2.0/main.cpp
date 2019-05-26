@@ -5,7 +5,7 @@
 
 int main()
 {
-	Database data;
+	Database& data = Database::getInstance();
 	LoginMenu loginMenu;
 	RegisterMenu registerMenu;
 	cout << "********************************************\n";
@@ -18,7 +18,7 @@ int main()
 	{
 		switch (c)
 		{
-		case 'a':			
+		case 'a':
 			loginMenu.login();
 			break;
 

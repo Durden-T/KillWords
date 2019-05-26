@@ -9,9 +9,11 @@
 class Database
 {
 public:
-	Database();
-
-	~Database();
+	static Database& getInstance()//singleton
+	{
+		static Database Instance;
+		return Instance;
+	}
 
 	//判断用户是否存在，存在返回true，否则返回false
 	bool hasUser(const string& name) const;
@@ -31,6 +33,11 @@ public:
 
 	//更新数据
 	void update();
+
+protected://singleton
+	Database();
+
+	~Database();
 
 private:
 	//从文件中读取用户信息,存入players,wordMakers
